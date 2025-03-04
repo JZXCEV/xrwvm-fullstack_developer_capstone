@@ -86,7 +86,7 @@ try {
     if (isNaN(id)) {
       return res.status(400).json({ error: 'Invalid ID' });
     }
-    const document = await Dealerships.findOne({ id: id });
+    const dealership = await Dealerships.find({ id });
     if (document) {
       res.json(document);
     } else {
