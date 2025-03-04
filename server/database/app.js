@@ -80,21 +80,20 @@ try {
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
-//Write your code here
-try {
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) {
-      return res.status(400).json({ error: 'Invalid ID' });
+    try {
+        const id = parseInt(req.params.id, 10);
+        if (isNaN(id)) {
+            return res.status(400).json({ error: 'Invalid ID' });
+        }
+        const dealership = await Dealerships.findOne({ id }); // Use findOne to return a single object
+        if (dealership) {
+            res.json(dealership);
+        } else {
+            res.status(404).json({ error: 'Dealer not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching dealer' });
     }
-    const dealership = await Dealerships.find({ id });
-    if (document) {
-      res.json(document);
-    } else {
-      res.status(404).json({ error: 'Dealer not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching dealer' });
-  }
 });
 
 //Express route to insert review
